@@ -1,6 +1,8 @@
 package com.ketchup.todos.controller;
 
+import com.ketchup.todos.request.AuthenticationRequest;
 import com.ketchup.todos.request.RegisterRequest;
+import com.ketchup.todos.response.AuthenticationResponse;
 import com.ketchup.todos.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,5 +26,12 @@ public class AuthenticationController {
     @PostMapping("/register")
     public void register(@Valid @RequestBody RegisterRequest registerRequest) throws  Exception {
         authenticationService.register(registerRequest);
+    }
+
+    @Operation(summary = "Login an user", description = "Submit email and password in order to auth an user")
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/login")
+    public AuthenticationResponse login(@Valid @RequestBody AuthenticationRequest request) {
+        return authenticationService.login(request);
     }
 }
