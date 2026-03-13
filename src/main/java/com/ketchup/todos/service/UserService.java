@@ -1,9 +1,13 @@
 package com.ketchup.todos.service;
 
-import com.ketchup.todos.entity.User;
+import com.ketchup.todos.response.UserResponse;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.nio.file.AccessDeniedException;
 
 public interface UserService {
-    User getUserInfo() throws AccessDeniedException;
+
+    UserResponse getUserInfo() throws AccessDeniedException;
+
+    void deleteUser() throws ResponseStatusException, AccessDeniedException;
 }
