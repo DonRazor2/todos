@@ -1,10 +1,11 @@
 package com.ketchup.todos.controller;
 
-import com.ketchup.todos.entity.User;
+import com.ketchup.todos.request.PasswordUpdateRequest;
 import com.ketchup.todos.response.UserResponse;
 import com.ketchup.todos.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -33,8 +34,17 @@ public class UserController {
         return userService.getUserInfo();
     }
 
+    @Operation(summary = "Delete user", description = "Delete current user account")
+    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping
     public void deleteUser() throws ResponseStatusException, AccessDeniedException {
         userService.deleteUser();
+    }
+
+    @Operation(summary = "Password update", description = "Change user password after verification")
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/password")
+    public void updatePassword(@Valid @RequestBody PasswordUpdateRequest request) throws AccessDeniedException, ResponseStatusException {
+        userService.updatePassword(request);
     }
 }
