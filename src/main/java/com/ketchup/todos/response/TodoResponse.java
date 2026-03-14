@@ -1,41 +1,27 @@
-package com.ketchup.todos.entity;
+package com.ketchup.todos.response;
 
-import jakarta.persistence.*;
+public class TodoResponse {
 
-@Table(name = "todos")
-@Entity
-public class Todo {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
     private long id;
-
-    @Column(nullable = false)
     private String tittle;
-
-    @Column(nullable = false)
     private String description;
-
-    @Column(nullable = false)
     private int priority;
-
-    @Column(nullable = false)
     private boolean complete;
 
-    // Many-to-one relation (one user can have many todos
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id", nullable = false)
-    private User owner;
-
-    public Todo() {}
-
-    public Todo(String tittle, String description, int priority, boolean complete, User owner) {
+    public TodoResponse(long id, String tittle, String description, int priority, boolean complete) {
+        this.id = id;
         this.tittle = tittle;
         this.description = description;
         this.priority = priority;
         this.complete = complete;
-        this.owner = owner;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTittle() {
@@ -68,21 +54,5 @@ public class Todo {
 
     public void setComplete(boolean complete) {
         this.complete = complete;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 }
